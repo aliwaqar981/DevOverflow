@@ -1,9 +1,7 @@
 const Home = () => {
   return (
     <div>
-      <h1 className="text-3xl text-violet-300 font-black">
-        Welcome to Next.js 👋
-      </h1>
+      <h1 className="h1-bold">Tailwind CSS is fun</h1>
     </div>
   );
 };
