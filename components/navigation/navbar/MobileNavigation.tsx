@@ -26,7 +26,7 @@ const MobileNavigation = () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-none p-4"
+        className="background-light900_dark200 border-none p-5"
       >
         <SheetTitle className="hidden">Navigation</SheetTitle>
         <Link href={"/"} className="flex items-center my-2 gap-1">
