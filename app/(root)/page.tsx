@@ -1,3 +1,4 @@
+import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
@@ -19,7 +20,7 @@ const questions = [
     _id: 2,
     title: "How to learn javascript?",
     description: "I want to learn javascfipot, any suggestions?",
-    tags: ["react", "javascript"],
+    tags: ["typescript"],
     author: { _id: 1, name: "John Doe" },
     upvotes: 10,
     answers: 2,
@@ -32,9 +33,17 @@ interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
 }
 const Home = async ({ searchParams }: SearchParams) => {
-  const { query = "" } = await searchParams;
+  const { query = "", filter = "" } = await searchParams;
   const filteredQuestions = questions.filter((question) => {
-    return question.title.toLowerCase().includes(query?.toLowerCase() || "");
+    const matchesQuery = question.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const matchesFilter = filter
+      ? question.tags
+          .map((tag) => tag.toLowerCase())
+          .includes(filter.toLowerCase())
+      : true;
+    return matchesQuery && matchesFilter;
   });
   return (
     <>
@@ -59,6 +68,7 @@ const Home = async ({ searchParams }: SearchParams) => {
           route="/"
         />
       </section>
+      <HomeFilter />
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
