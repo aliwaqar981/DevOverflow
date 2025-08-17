@@ -1,3 +1,4 @@
+import QuestionCard from "@/components/cards/QuestionCard";
 import HomeFilter from "@/components/filters/HomeFilter";
 import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
@@ -6,26 +7,37 @@ import Link from "next/link";
 
 const questions = [
   {
-    _id: 1,
+    _id: "1",
     title: "How to learn react?",
     description: "I want to learn react, any suggestions?",
-    tags: ["react", "javascript"],
-    author: { _id: 1, name: "John Doe" },
+    tags: [
+      { _id: "ab", name: "react" },
+      { _id: "cd", name: "javascript" },
+    ],
+    author: {
+      _id: "1",
+      name: "John Doe",
+      image: "https://cdn-icons-png.flaticon.com/512/6858/6858504.png",
+    },
     upvotes: 10,
     answers: 2,
     views: 100,
-    createdAt: new Date(),
+    createdAt: new Date("2023-10-01T12:00:00Z"),
   },
   {
-    _id: 2,
+    _id: "2",
     title: "How to learn javascript?",
     description: "I want to learn javascfipot, any suggestions?",
-    tags: ["typescript"],
-    author: { _id: 1, name: "John Doe" },
+    tags: [{ _id: "typescript", name: "typescript" }],
+    author: {
+      _id: "1",
+      name: "John Doe",
+      image: "https://cdn-icons-png.flaticon.com/512/6858/6858504.png",
+    },
     upvotes: 10,
     answers: 2,
     views: 100,
-    createdAt: new Date(),
+    createdAt: new Date("2024-12-02T12:00:00Z"),
   },
 ];
 
@@ -40,7 +52,7 @@ const Home = async ({ searchParams }: SearchParams) => {
       .includes(query.toLowerCase());
     const matchesFilter = filter
       ? question.tags
-          .map((tag) => tag.toLowerCase())
+          .map((tag) => tag.name.toLowerCase())
           .includes(filter.toLowerCase())
       : true;
     return matchesQuery && matchesFilter;
@@ -72,7 +84,7 @@ const Home = async ({ searchParams }: SearchParams) => {
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {filteredQuestions.map((question) => (
-          <h1 key={question._id}>{question.title}</h1>
+          <QuestionCard key={question._id} question={question} />
         ))}
       </div>
     </>
